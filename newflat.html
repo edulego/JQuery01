@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery - Dialog</title>
+    <link rel="stylesheet" href="jquery-ui-1.13.3.custom/jquery-ui.min.css" />
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui-1.13.3.custom/jquery-ui.min.js"></script>
+</head>
+<body>
+    <button id="btnNuevoFlat">Nuevo flat</button>
+    <div id="dialog" title="Nuevo Flat" style="display: none;">
+        <div>
+            <label>Nombre:</label>
+            <input type="text" id="nombre" />
+        </div>
+        <div>
+            <label>Fecha disponible:</label>
+            <input type="text" id="fechadisponible" />
+        </div>
+
+        <div>
+            <label for="">Área</label>
+            <p>
+                <label for="amount">Price range:</label>
+                <input type="text" id="amount" readonly="" style="border:0; color:#f6931f; font-weight:bold;">
+            </p>
+               
+            <div id="slider-range"></div>
+        </div>
+
+        <br/><br/>
+        <div>
+            <button id="btnGuardarFlat" class="ui-button ui-widget ui-corner-all">
+                <span class="ui-icon ui-icon-home"></span> Guardar
+            </button>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function(){
+            // Definir el evento clic
+            $('#btnNuevoFlat').click(function(){
+                $( "#slider" ).slider();
+                $("#fechadisponible").datepicker();
+                $("#dialog").dialog();
+
+                $( "#slider-range" ).slider({
+                    range: true,
+                    min: 0,
+                    max: 500,
+                    values: [ 75, 300 ],
+                    slide: function( event, ui ) {
+                        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                    }
+                });
+                $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+                " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+            });
+            $('#btnGuardarFlat').click(function(){
+                
+                alert('Guardado!!');
+            });
+        });
+    </script>
+</body>
+</html>
